@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://cx62ggnuuspc2"]
+
+[ext_resource type="Texture2D" uid="uid://2rma5qpot8oj" path="res://icon.svg" id="1_j174h"]
+[ext_resource type="Material" uid="uid://ca1oxqvdr5huj" path="res://resources/blue_shader_mat.tres" id="1_m80mr"]
+
+[node name="TestSprite" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = ExtResource("1_m80mr")
+scale = Vector2(2, 2)
+texture = ExtResource("1_j174h")

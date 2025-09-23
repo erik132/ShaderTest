@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=3 uid="uid://b73w0plnur8tu"]
+
+[ext_resource type="Shader" uid="uid://mecijtbgf1e5" path="res://shaders/distance_field.gdshader" id="1_7xgvy"]
+[ext_resource type="Texture2D" uid="uid://2rma5qpot8oj" path="res://icon.svg" id="1_sedgw"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_54rxo"]
+shader = ExtResource("1_7xgvy")
+
+[node name="DistanceField" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_54rxo")
+scale = Vector2(3, 3)
+texture = ExtResource("1_sedgw")

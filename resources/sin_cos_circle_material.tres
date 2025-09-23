@@ -1,0 +1,6 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://cm8wi6ytxjgmr"]
+
+[ext_resource type="Shader" uid="uid://d2nyfjolns2eq" path="res://shaders/sin_cos_circle.gdshader" id="1_n62dh"]
+
+[resource]
+shader = ExtResource("1_n62dh")

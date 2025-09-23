@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://b7uprxf7f2v1a"]
+
+[ext_resource type="Script" uid="uid://m1wspr8rcefg" path="res://scripts/red_map_scene.gd" id="1_psrah"]
+[ext_resource type="Material" uid="uid://dumificq87r6t" path="res://resources/redmap_shader_material.tres" id="1_t371h"]
+[ext_resource type="Texture2D" uid="uid://dxt03icunq7ov" path="res://redmap320x160.png" id="2_psrah"]
+
+[node name="RedMapScene" type="Node2D"]
+script = ExtResource("1_psrah")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = ExtResource("1_t371h")
+scale = Vector2(2, 2)
+texture = ExtResource("2_psrah")

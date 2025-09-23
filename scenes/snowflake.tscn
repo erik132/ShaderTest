@@ -1,0 +1,17 @@
+[gd_scene load_steps=5 format=3 uid="uid://dcn5u4ehhfsk0"]
+
+[ext_resource type="Texture2D" uid="uid://2rma5qpot8oj" path="res://icon.svg" id="1_4dymq"]
+[ext_resource type="Shader" uid="uid://dg5q6o88pa22q" path="res://shaders/snowflake.gdshader" id="1_7dclt"]
+[ext_resource type="Script" uid="uid://b0ggumcxmm6eq" path="res://scripts/snowflake.gd" id="1_viq34"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_viq34"]
+shader = ExtResource("1_7dclt")
+shader_parameter/extra_angle = 0.0
+
+[node name="Snowflake" type="Node2D"]
+script = ExtResource("1_viq34")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_viq34")
+scale = Vector2(3, 3)
+texture = ExtResource("1_4dymq")

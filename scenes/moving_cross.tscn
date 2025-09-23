@@ -1,0 +1,17 @@
+[gd_scene load_steps=5 format=3 uid="uid://m1ctyg3jma0w"]
+
+[ext_resource type="Script" uid="uid://cdfbm152htur7" path="res://scripts/moving_cross.gd" id="1_3sl6c"]
+[ext_resource type="Texture2D" uid="uid://2rma5qpot8oj" path="res://icon.svg" id="1_ablwy"]
+[ext_resource type="Shader" uid="uid://cxhfhq626ac4e" path="res://shaders/moving_cross.gdshader" id="1_rjvks"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3sl6c"]
+shader = ExtResource("1_rjvks")
+shader_parameter/extra_angle = 0.0
+
+[node name="MovingCross" type="Node2D"]
+script = ExtResource("1_3sl6c")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_3sl6c")
+scale = Vector2(3, 3)
+texture = ExtResource("1_ablwy")

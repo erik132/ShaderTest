@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://dflixkf42xqb"]
+
+[ext_resource type="Material" uid="uid://cm8wi6ytxjgmr" path="res://resources/sin_cos_circle_material.tres" id="1_me26x"]
+[ext_resource type="Texture2D" uid="uid://2rma5qpot8oj" path="res://icon.svg" id="1_qvwvg"]
+
+[node name="SinCosCircle" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = ExtResource("1_me26x")
+scale = Vector2(3, 3)
+texture = ExtResource("1_qvwvg")

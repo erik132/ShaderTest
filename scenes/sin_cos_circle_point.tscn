@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://cto7rx4kmcw10"]
+
+[ext_resource type="Script" uid="uid://brvv1rl44kxyv" path="res://scripts/sin_cos_circle_point.gd" id="1_qkb25"]
+[ext_resource type="Texture2D" uid="uid://2rma5qpot8oj" path="res://icon.svg" id="1_w86xl"]
+[ext_resource type="Material" uid="uid://bcq6xopiy7n5n" path="res://resources/sin_cos_circle_point_material.tres" id="2_pfohh"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_pfohh"]
+font_size = 48
+
+[node name="SinCosCirclePoint" type="Node2D"]
+script = ExtResource("1_qkb25")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = ExtResource("2_pfohh")
+scale = Vector2(3, 3)
+texture = ExtResource("1_w86xl")
+
+[node name="Label" type="Label" parent="."]
+offset_left = 201.0
+offset_top = -176.0
+offset_right = 241.0
+offset_bottom = -153.0
+text = "0.0"
+label_settings = SubResource("LabelSettings_pfohh")

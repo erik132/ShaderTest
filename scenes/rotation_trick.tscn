@@ -1,0 +1,17 @@
+[gd_scene load_steps=5 format=3 uid="uid://bbkh28n6ij3hc"]
+
+[ext_resource type="Shader" uid="uid://uvwogrx0ab5j" path="res://shaders/rotation_trick.gdshader" id="1_712cu"]
+[ext_resource type="Script" uid="uid://crtcxjngdnd1e" path="res://scripts/rotation_trick.gd" id="1_bhi6w"]
+[ext_resource type="Texture2D" uid="uid://2rma5qpot8oj" path="res://icon.svg" id="1_btnfp"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bhi6w"]
+shader = ExtResource("1_712cu")
+shader_parameter/extra_angle = 0.0
+
+[node name="RotationTrick" type="Node2D"]
+script = ExtResource("1_bhi6w")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_bhi6w")
+scale = Vector2(3, 3)
+texture = ExtResource("1_btnfp")

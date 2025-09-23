@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://di1qgt8rwh6cu"]
+
+[ext_resource type="Texture2D" uid="uid://2rma5qpot8oj" path="res://icon.svg" id="1_040my"]
+[ext_resource type="Material" uid="uid://c2on2sfmxqikq" path="res://resources/linear_function_material.tres" id="1_qowdo"]
+
+[node name="LinearFunction" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = ExtResource("1_qowdo")
+scale = Vector2(3, 3)
+texture = ExtResource("1_040my")
