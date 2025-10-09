@@ -1,0 +1,16 @@
+[gd_scene load_steps=5 format=3 uid="uid://cl8lbulp0j2vc"]
+
+[ext_resource type="Script" uid="uid://1o5j7dj7mv6l" path="res://scripts/test_planet_3.gd" id="1_8uv30"]
+[ext_resource type="Texture2D" uid="uid://cddk6tt1alpdk" path="res://TestPlanet1.png" id="1_drfpe"]
+[ext_resource type="Shader" uid="uid://cpu3nj5junh08" path="res://shaders/test_planet_3.gdshader" id="1_fy6yk"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8uv30"]
+shader = ExtResource("1_fy6yk")
+shader_parameter/planet_angle = 0.0
+
+[node name="TestPlanet3" type="Node2D"]
+script = ExtResource("1_8uv30")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_8uv30")
+texture = ExtResource("1_drfpe")

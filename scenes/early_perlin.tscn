@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=3 uid="uid://yprrixl2vabu"]
+
+[ext_resource type="Texture2D" uid="uid://2rma5qpot8oj" path="res://icon.svg" id="1_4uf73"]
+[ext_resource type="Shader" uid="uid://bwk1m12fe1g4k" path="res://shaders/early_perlin.gdshader" id="1_s3q35"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7cwh7"]
+shader = ExtResource("1_s3q35")
+
+[node name="EarlyPerlin" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_7cwh7")
+scale = Vector2(4, 4)
+texture = ExtResource("1_4uf73")

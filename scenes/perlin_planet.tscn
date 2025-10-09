@@ -1,0 +1,17 @@
+[gd_scene load_steps=5 format=3 uid="uid://cyjc1vnphtjnr"]
+
+[ext_resource type="Texture2D" uid="uid://2rma5qpot8oj" path="res://icon.svg" id="1_8ca14"]
+[ext_resource type="Script" uid="uid://djx15o0mflgrq" path="res://scripts/perlin_planet.gd" id="1_cvblp"]
+[ext_resource type="Shader" uid="uid://bi6cr8y54sfh1" path="res://shaders/perlin_planet.gdshader" id="1_ueo1y"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ueo1y"]
+shader = ExtResource("1_ueo1y")
+shader_parameter/planet_angle = 0.0
+
+[node name="PerlinPlanet" type="Node2D"]
+script = ExtResource("1_cvblp")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_ueo1y")
+scale = Vector2(4, 4)
+texture = ExtResource("1_8ca14")

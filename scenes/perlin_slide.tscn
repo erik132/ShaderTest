@@ -1,0 +1,17 @@
+[gd_scene load_steps=5 format=3 uid="uid://d28wqpc67b8ne"]
+
+[ext_resource type="Texture2D" uid="uid://2rma5qpot8oj" path="res://icon.svg" id="1_j1vg6"]
+[ext_resource type="Script" uid="uid://fp00iycsje80" path="res://scripts/perlin_slide.gd" id="1_thayl"]
+[ext_resource type="Shader" uid="uid://dio2t1vhaqtuf" path="res://shaders/perlin_slide.gdshader" id="2_bsso6"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0bmmd"]
+shader = ExtResource("2_bsso6")
+shader_parameter/x_moved = 0.0
+
+[node name="PerlinSlide" type="Node2D"]
+script = ExtResource("1_thayl")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_0bmmd")
+scale = Vector2(4, 4)
+texture = ExtResource("1_j1vg6")

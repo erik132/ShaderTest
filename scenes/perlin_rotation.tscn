@@ -1,0 +1,17 @@
+[gd_scene load_steps=5 format=3 uid="uid://cnx6sh50gqjd8"]
+
+[ext_resource type="Texture2D" uid="uid://2rma5qpot8oj" path="res://icon.svg" id="1_al3kg"]
+[ext_resource type="Script" uid="uid://b4o7kl3wuxx3f" path="res://scripts/perlin_rotation.gd" id="1_pnxi8"]
+[ext_resource type="Shader" uid="uid://dj75hspp6o5ep" path="res://shaders/perlin_rotation.gdshader" id="2_cdk2q"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nkxtv"]
+shader = ExtResource("2_cdk2q")
+shader_parameter/planet_angle = 0.0
+
+[node name="PerlinRotation" type="Node2D"]
+script = ExtResource("1_pnxi8")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_nkxtv")
+scale = Vector2(4, 4)
+texture = ExtResource("1_al3kg")
