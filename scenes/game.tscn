@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://co0fihr8k14wo"]
+[gd_scene load_steps=24 format=3 uid="uid://co0fihr8k14wo"]
 
 [ext_resource type="PackedScene" uid="uid://cx62ggnuuspc2" path="res://scenes/test_sprite.tscn" id="1_uwrxv"]
 [ext_resource type="PackedScene" uid="uid://b7uprxf7f2v1a" path="res://scenes/red_map_scene.tscn" id="2_yqjtg"]
@@ -16,7 +16,9 @@
 [ext_resource type="PackedScene" uid="uid://crbtfbbnig3u4" path="res://scenes/sampler_2d_test.tscn" id="14_trtic"]
 [ext_resource type="PackedScene" uid="uid://bk4ib36q1d7ps" path="res://scenes/test_planet_4.tscn" id="15_5newe"]
 [ext_resource type="PackedScene" uid="uid://cl8lbulp0j2vc" path="res://scenes/test_planet_3.tscn" id="15_ir15t"]
+[ext_resource type="PackedScene" uid="uid://b2qkrdishjn6e" path="res://scenes/test_planet_5.tscn" id="16_37s47"]
 [ext_resource type="PackedScene" uid="uid://bms8owy1idf63" path="res://scenes/random_2d_test.tscn" id="16_ca42v"]
+[ext_resource type="PackedScene" uid="uid://wm2jt65wgmu1" path="res://scenes/test_planet_6.tscn" id="17_bt5mj"]
 [ext_resource type="PackedScene" uid="uid://yprrixl2vabu" path="res://scenes/early_perlin.tscn" id="17_rysoc"]
 [ext_resource type="PackedScene" uid="uid://d28wqpc67b8ne" path="res://scenes/perlin_slide.tscn" id="18_ssvqc"]
 [ext_resource type="PackedScene" uid="uid://cnx6sh50gqjd8" path="res://scenes/perlin_rotation.tscn" id="19_264po"]
@@ -78,7 +80,15 @@ visible = false
 position = Vector2(590, 432)
 
 [node name="TestPlanet4" parent="." instance=ExtResource("15_5newe")]
+visible = false
 position = Vector2(611, 447)
+
+[node name="TestPlanet5" parent="." instance=ExtResource("16_37s47")]
+visible = false
+position = Vector2(591, 448)
+
+[node name="TestPlanet6" parent="." instance=ExtResource("17_bt5mj")]
+position = Vector2(604, 445)
 
 [node name="Sampler2DTest" parent="." instance=ExtResource("14_trtic")]
 visible = false

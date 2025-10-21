@@ -1,0 +1,66 @@
+----------------- Planets 1-4 ----------------------------
+0-50 - deep ocean vec3(11, 9, 59)
+50-100 - regular sea vec3(0, 75, 143)
+100-150 - flatlands vec3(61, 69, 46)
+150-200 - hills vec3(135, 111, 87)
+200-255 - mountains vec3(108, 102, 90)
+
+when drawing:
+25 - deep ocean
+75 - regular sea
+125 - flatlands
+175 - hills
+225 - mountains
+
+----------------Planets 5-? -------------------------------
+
+vec3(0.051, 0.110, 0.235), // Deep ocean
+vec3(0.078, 0.169, 0.361), // Ocean
+vec3(0.110, 0.235, 0.490), // Ocean
+vec3(0.157, 0.329, 0.580), // Shallow ocean
+vec3(0.235, 0.463, 0.698), // Shallow water
+vec3(0.353, 0.580, 0.761), // Very shallow water
+vec3(0.761, 0.698, 0.502), // Beach sand
+vec3(0.639, 0.580, 0.420), // Dry sand
+vec3(0.361, 0.510, 0.282), // Grass green
+vec3(0.282, 0.420, 0.235), // Forest green
+vec3(0.200, 0.329, 0.169), // Dark forest
+vec3(0.420, 0.361, 0.282), // Mountain brown
+vec3(0.502, 0.439, 0.361), // Mountain rock
+vec3(0.698, 0.698, 0.698), // Mountain grey
+vec3(0.878, 0.878, 0.878), // Snow
+vec3(1.000, 1.000, 1.000)  // Pure snow white
+
+0-16 - Deep ocean
+16-32 - Ocean
+32-48 - Ocean2
+48-64 - Shallow Ocean
+64-80 - Shallow Water
+80-96 - Very Shallow Water
+96-112 - Beach sand
+112-128 - Dry sand
+128-144 - Grass green
+144-160 - Forest green
+160-176 - Dark forest
+176-192 - Mountain brown
+192-208 - Mountain Rock
+208-224 - Mountain grey
+224-240 - Snow
+240-256 - Pure Snow white
+
+8 - Deep ocean
+24 - Ocean
+40 - Ocean2
+56 - Shallow Ocean
+72 - Shallow Water
+88 - Very Shallow Water
+104 - Beach sand
+120 - Dry sand
+136 - Grass green
+152 - Forest green
+168 - Dark forest
+184 - Mountain brown
+200 - Mountain Rock
+216 - Mountain grey
+232 - Snow
+248 - Pure Snow white

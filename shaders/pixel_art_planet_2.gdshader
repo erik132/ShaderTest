@@ -227,13 +227,13 @@ vec3 get_default_palette_color(int index, bool is_cloud) {
 // Return the colour from a palette that most closely matches target
 vec3 get_nearest_colour(in sampler2D palette, in vec3 target, bool is_cloud) {
 	ivec2 palette_size = textureSize(palette, 0);
-	
+
 	// Use default palette if texture is too small
 	if (palette_size.x <= 1 || palette_size.y <= 1) {
 		float min_dist = 2.0;
 		vec3 closest_color = background_colour.rgb;
 		int palette_length = is_cloud ? 8 : 16;
-		
+
 		for (int i = 0; i < palette_length; i++) {
 			vec3 index_color = get_default_palette_color(i, is_cloud);
 			float dist = length(index_color - target);
@@ -247,11 +247,11 @@ vec3 get_nearest_colour(in sampler2D palette, in vec3 target, bool is_cloud) {
 		}
 		return closest_color;
 	}
-	
+
 	// Use provided palette texture
 	vec3 closest_color = background_colour.rgb;
 	float min_dist = 2.0;
-	
+
 	for (int row = 0; row < palette_size.y; row++) {
 		float yuv = 1.0 / (2.0 * float(palette_size.y)) + float(row) / float(palette_size.y);
 		for (int column = 0; column < palette_size.x; column++){
@@ -290,13 +290,13 @@ float get_leveled_dither(int level, vec2 uv) {
 // Get color from palette by index
 vec4 get_colour_by_index(sampler2D palette, int index, bool is_cloud) {
 	ivec2 palette_size = textureSize(palette, 0);
-	
+
 	// Use default palette if texture is too small
 	if (palette_size.x <= 1 || palette_size.y < 1) {
 		vec3 color = get_default_palette_color(index, is_cloud);
 		return vec4(color, 1.0);
 	}
-	
+
 	// Use first row only for simplified palette
 	float uvx = (1.0 / float(palette_size.x + 1)) * (float(index + 1));
 	float uvy = 1.0 / (2.0 * float(palette_size.y));
@@ -406,22 +406,22 @@ float calculate_light(vec2 grid_uv, float radius) {
 vec2 uv_to_spherical(vec2 uv, float radius, float rotation) {
 	vec2 centered = uv - vec2(0.5);
 	float dist_from_center = length(centered);
-	
+
 	if (dist_from_center > radius) {
 		return vec2(-1.0);
 	}
-	
+
 	float z = sqrt(radius * radius - dist_from_center * dist_from_center);
 	vec3 sphere_pos = vec3(centered.x, centered.y, z) / radius;
-	
+
 	float theta = atan(sphere_pos.x, sphere_pos.z);
 	float phi = asin(sphere_pos.y);
-	
+
 	float tex_u = (theta + rotation) / (2.0 * 3.14159265359) + 0.5;
 	float tex_v = phi / 3.14159265359 + 0.5;
-	
+
 	tex_u = fract(tex_u);
-	
+
 	return vec2(tex_u, tex_v);
 }
 
@@ -458,7 +458,7 @@ vec4 surface_procedural(vec2 uv, mat3 rot_p, mat3 rot_p2, mat3 rot_p3) {
 	if (isnan(w)) {
 		return vec4(0.0);
 	}
-	
+
 	float perlin = seamless_noise(
 		uv,
 		w,
@@ -466,7 +466,7 @@ vec4 surface_procedural(vec2 uv, mat3 rot_p, mat3 rot_p2, mat3 rot_p3) {
 		rot_p,
 		surface_primary_cell_amount
 	);
-	
+
 	if (!isnan(perlin)) {
 		perlin = clamp(
 			((perlin - 0.5) * surface_primary_strength) + 0.5,
@@ -474,13 +474,13 @@ vec4 surface_procedural(vec2 uv, mat3 rot_p, mat3 rot_p2, mat3 rot_p3) {
 			1.0
 		);
 	}
-	
+
 	// Apply band distortion for gas giant effect
 	if (use_band_distortion && !isnan(perlin)) {
 		float band = sin((uv.y - 0.5) * band_frequency * 3.14159) * 0.5 + 0.5;
 		perlin = mix(perlin, band, band_distortion_strength);
 	}
-	
+
 	// Secondary noise layer
 	if (surface_secondary_enabled) {
 		perlin = apply_surface_noise(
@@ -493,7 +493,7 @@ vec4 surface_procedural(vec2 uv, mat3 rot_p, mat3 rot_p2, mat3 rot_p3) {
 			surface_secondary_strength
 		);
 	}
-	
+
 	// Tertiary noise layer
 	if (surface_tertiary_enabled) {
 		perlin = apply_surface_noise(
@@ -506,7 +506,7 @@ vec4 surface_procedural(vec2 uv, mat3 rot_p, mat3 rot_p2, mat3 rot_p3) {
 			surface_tertiary_strength
 		);
 	}
-	
+
 	// Map noise to palette colors
 	vec4 color = background_colour;
 	if (!isnan(perlin)) {
@@ -515,11 +515,11 @@ vec4 surface_procedural(vec2 uv, mat3 rot_p, mat3 rot_p2, mat3 rot_p3) {
 		int color_index = int(perlin * float(num_colors - 1));
 		color = get_colour_by_index(surface_palette, color_index, false);
 	}
-	
+
 	// Apply lighting
 	float light = calculate_light(uv, surface_radius);
 	color.rgb = color.rgb * light;
-	
+
 	return color;
 }
 
@@ -529,21 +529,21 @@ vec4 surface_from_texture(vec2 uv, float rotation) {
 	if (isnan(w)) {
 		return vec4(0.0);
 	}
-	
+
 	vec2 tex_coords = uv_to_spherical(uv, surface_radius, rotation);
 	if (tex_coords.x < 0.0) {
 		return vec4(0.0);
 	}
-	
+
 	vec4 earth_color = texture(earth_texture, tex_coords);
-	
+
 	// Quantize to palette colors for pixelated effect
 	earth_color.rgb = get_nearest_colour(surface_palette, earth_color.rgb, false);
-	
+
 	// Apply lighting
 	float light = calculate_light(uv, surface_radius);
 	earth_color.rgb = earth_color.rgb * light;
-	
+
 	return earth_color;
 }
 
@@ -571,7 +571,7 @@ vec4 clouds_procedural(
 	if (isnan(w)) {
 		return vec4(0.0);
 	}
-	
+
 	float theta = TIME * fluctuation_speed;
 	mat3 rot_0 = mat3(
 		vec3(1, 0, 0),
@@ -586,7 +586,7 @@ vec4 clouds_procedural(
 		rot_0*rot_p,
 		cell_amount
 	);
-	
+
 	float noise = seamless_noise(
 		uv,
 		w,
@@ -594,7 +594,7 @@ vec4 clouds_procedural(
 		rot_0*rot_p,
 		noise_cell_amount
 	);
-	
+
 	if (!isnan(perlin)) {
 		perlin = clamp(
 			perlin + ((noise - 0.5) * noise_strength),
@@ -615,14 +615,14 @@ vec4 clouds_procedural(
 			// Map to palette
 			float cloud_range = perlin - base_cutoff;
 			float normalized = cloud_range / (1.0 - base_cutoff);
-			
+
 			ivec2 palette_size = textureSize(palette, 0);
 			int num_colors = (palette_size.x <= 1) ? 8 : palette_size.x;
 			int color_index = int(normalized * float(num_colors - 1));
-			
+
 			color = get_colour_by_index(palette, color_index, true);
 			color.a = opacity;
-			
+
 			// Apply lighting
 			float light = calculate_light(uv, radius);
 			color.rgb = color.rgb * light;
@@ -646,14 +646,14 @@ vec4 clouds_from_texture(
 	if (isnan(w)) {
 		return vec4(0.0);
 	}
-	
+
 	vec2 tex_coords = uv_to_spherical(uv, radius, rotation);
 	if (tex_coords.x < 0.0) {
 		return vec4(0.0);
 	}
-	
+
 	vec4 cloud_color = texture(cloud_tex, tex_coords);
-	
+
 	if (is_shadow) {
 		if (cloud_color.a > 0.1) {
 			return vec4(0.0, 0.0, 0.0, cloud_shadow_darkness * cloud_color.a * opacity);
@@ -663,7 +663,7 @@ vec4 clouds_from_texture(
 		if (cloud_color.a > 0.1) {
 			cloud_color.rgb = get_nearest_colour(palette, cloud_color.rgb, true);
 			cloud_color.a *= opacity;
-			
+
 			float light = calculate_light(uv, radius);
 			cloud_color.rgb = cloud_color.rgb * light;
 		}
@@ -674,19 +674,19 @@ vec4 clouds_from_texture(
 // Atmosphere rendering
 vec4 atmosphere(vec2 uv) {
 	vec4 result = vec4(0.0);
-	
+
 	if (atmosphere_radius <= surface_radius) {
 		return result;
 	}
-	
+
 	ivec2 palette_size = textureSize(atmosphere_palette, 0);
 	float atmosphere_thickness = (atmosphere_radius - surface_radius);
 	float atmos_layer_thickness = atmosphere_thickness / float(palette_size.x);
-	
+
 	for (int column = palette_size.x - 1; column >= 0; column--) {
 		float radius = surface_radius + (atmos_layer_thickness * float(column + 1));
 		float w = calculate_z(uv, radius);
-		
+
 		if (w < 1.0) {
 			float light = calculate_light(uv, radius);
 			result = vec4(texture(atmosphere_palette, vec2(float(column) / float(palette_size.x), 0.5)).rgb, 0.5);
@@ -698,12 +698,12 @@ vec4 atmosphere(vec2 uv) {
 
 void fragment() {
 	vec2 grid_uv = calculate_grid_uv(UV);
-	
+
 	// Calculate rotations
 	float surface_rotation = surface_base_rotation + (TIME * surface_rotation_speed);
 	float cloud_1_rotation = TIME * cloud_1_rotation_speed;
 	float cloud_2_rotation = TIME * cloud_2_rotation_speed;
-	
+
 	// Surface rotation matrices for procedural mode
 	mat3 srot = generate_rotation_matrix(surface_rotation);
 	mat3 srot2 = generate_rotation_matrix(
@@ -712,7 +712,7 @@ void fragment() {
 	mat3 srot3 = generate_rotation_matrix(
 		surface_tertiary_rotation + (TIME * surface_tertiary_rotation_speed)
 	);
-	
+
 	// Generate surface based on mode
 	vec4 color;
 	if (use_texture_surface && textureSize(earth_texture, 0).x > 1) {
@@ -720,15 +720,15 @@ void fragment() {
 	} else {
 		color = surface_procedural(grid_uv, srot, srot2, srot3);
 	}
-	
+
 	// Cloud shadows
 	vec4 cloud_1_shadows = vec4(0.0);
 	vec4 cloud_2_shadows = vec4(0.0);
-	
+
 	// Cloud rotation matrix for procedural clouds
 	mat3 crot1 = generate_rotation_matrix(cloud_1_rotation);
 	mat3 crot2 = generate_rotation_matrix(cloud_2_rotation);
-	
+
 	// First cloud layer shadows
 	if (display_cloud_shadows) {
 		if (use_texture_clouds && textureSize(cloud_1_texture, 0).x > 1) {
@@ -758,7 +758,7 @@ void fragment() {
 				true
 			);
 		}
-		
+
 		// Second cloud layer shadows
 		if (use_texture_clouds && textureSize(cloud_2_texture, 0).x > 1) {
 			cloud_2_shadows = clouds_from_texture(
@@ -788,11 +788,11 @@ void fragment() {
 			);
 		}
 	}
-	
+
 	// Get cloud layers
 	vec4 clouds_1 = vec4(0.0);
 	vec4 clouds_2 = vec4(0.0);
-	
+
 	// First cloud layer
 	if (use_texture_clouds && textureSize(cloud_1_texture, 0).x > 1) {
 		clouds_1 = clouds_from_texture(
@@ -821,7 +821,7 @@ void fragment() {
 			false
 		);
 	}
-	
+
 	// Second cloud layer
 	if (use_texture_clouds && textureSize(cloud_2_texture, 0).x > 1) {
 		clouds_2 = clouds_from_texture(
@@ -850,31 +850,31 @@ void fragment() {
 			false
 		);
 	}
-	
+
 	// Compose final image
 	COLOR = vec4(0.0, 0.0, 0.0, 0.0);
-	
+
 	// Atmosphere
 	COLOR.rgba = atmosphere(grid_uv);
-	
+
 	// Surface with shadows
 	if (color.a > 0.0) {
 		COLOR.rgba = color.rgba;
 		COLOR.rgb = COLOR.rgb * (1.0 - cloud_1_shadows.a);
 		COLOR.rgb = COLOR.rgb * (1.0 - cloud_2_shadows.a);
 	}
-	
+
 	// Add clouds
 	if (clouds_1.a > 0.0) {
 		COLOR.rgb = mix(COLOR.rgb, clouds_1.rgb, clouds_1.a);
 		COLOR.a = max(COLOR.a, clouds_1.a);
 	}
-	
+
 	if (clouds_2.a > 0.0) {
 		COLOR.rgb = mix(COLOR.rgb, clouds_2.rgb, clouds_2.a);
 		COLOR.a = max(COLOR.a, clouds_2.a);
 	}
-	
+
 	// Final posterization
 	if (posterise) {
 		COLOR.rgb = get_nearest_colour(posterisation_palette, COLOR.rgb, false);

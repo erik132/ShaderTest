@@ -3,11 +3,23 @@ shader_type canvas_item;
 uniform float planet_angle = 0.0;
 
 const vec4 colors[] = {
-			vec4(11.0/255.0, 9.0/255.0, 59.0/255.0, 1.0), 
-			vec4(0.0, 75.0/255.0, 143.0/255.0, 1.0),
-			vec4(61.0/255.0, 69.0/255.0, 46.0/255.0, 1.0),
-			vec4(135.0/255.0, 111.0/255.0, 87.0/255.0, 1.0),
-			vec4(108.0/255.0, 102.0/255.0, 90.0/255.0, 1.0)};
+			vec4(0.051, 0.110, 0.235, 1.0), // Deep ocean
+			vec4(0.078, 0.169, 0.361, 1.0), // Ocean
+			vec4(0.110, 0.235, 0.490, 1.0), // Ocean
+			vec4(0.157, 0.329, 0.580, 1.0), // Shallow ocean
+			vec4(0.235, 0.463, 0.698, 1.0), // Shallow water
+			vec4(0.353, 0.580, 0.761, 1.0), // Very shallow water
+			vec4(0.761, 0.698, 0.502, 1.0), // Beach sand
+			vec4(0.639, 0.580, 0.420, 1.0), // Dry sand
+			vec4(0.361, 0.510, 0.282, 1.0), // Grass green
+			vec4(0.282, 0.420, 0.235, 1.0), // Forest green
+			vec4(0.200, 0.329, 0.169, 1.0), // Dark forest
+			vec4(0.420, 0.361, 0.282, 1.0), // Mountain brown
+			vec4(0.502, 0.439, 0.361, 1.0), // Mountain rock
+			vec4(0.698, 0.698, 0.698, 1.0), // Mountain grey
+			vec4(0.878, 0.878, 0.878, 1.0), // Snow
+			vec4(1.000, 1.000, 1.000, 1.0)  // Pure snow white
+};
 
 const vec4 black_color = vec4(0.0, 0.0, 0.0, 0.0);
 const float planet_radius = 0.45;
@@ -32,7 +44,21 @@ mat2 rotation_matrix(float angle){
 }
 
 int select_palette(float elevation){
-	return int(step(50.0/255.0, elevation) + step(100.0/255.0, elevation) + step(150.0/255.0, elevation) + step(200.0/255.0, elevation));
+	return int(step(16.0/255.0, elevation) +
+			step(32.0/255.0, elevation) +
+			step(48.0/255.0, elevation) +
+			step(64.0/255.0, elevation) +
+			step(80.0/255.0, elevation) +
+			step(96.0/255.0, elevation) +
+			step(112.0/255.0, elevation) +
+			step(128.0/255.0, elevation) +
+			step(144.0/255.0, elevation) +
+			step(160.0/255.0, elevation) +
+			step(176.0/255.0, elevation) +
+			step(192.0/255.0, elevation) + 
+			step(208.0/255.0, elevation) +
+			step(224.0/255.0, elevation) + 
+			step(240.0/255.0, elevation));
 }
 
 int select_atmosphere_palette(float small_distance) {

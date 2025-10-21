@@ -13,7 +13,7 @@ void fragment() {
 	vec2 adjusted = UV * 15.0;
 	vec2 floored = floor(adjusted);
 	COLOR = vec4(pseudo_random(floored), 0.0, 0.0, 1.0);
-	
+
 	//COLOR = vec4(pseudo_random(UV), 0.0, 0.0, 1.0);
 }
 

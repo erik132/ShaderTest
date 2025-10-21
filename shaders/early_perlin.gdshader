@@ -51,7 +51,7 @@ float noise2(vec2 st) {
 void fragment() {
 	// Called for every pixel the material is visible on.
 	vec2 corrected = UV * 5.0;
-	
+
 	float end_color = noise2(corrected) - 0.0;
 	COLOR = vec4(end_color, 0.0, 0.0, 1.0);
 }
